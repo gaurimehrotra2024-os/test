@@ -1,3 +1,2 @@
-print('bruh')
-for i in range n:
-    print('ok')
+openaikey = "ihfgiajbciqunbciuqnbc87639816983"
+password = "kjbdkb234"
