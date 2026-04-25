@@ -5,7 +5,7 @@ import pickle
 import random
 
 app = Flask(__name__)
-app.secret_key = "hardcoded-secret-key"   # Vulnerability: hardcoded secret
+app.secret_key = "akdshcfghsdfhiuoshfiusdci90w438u34jwfhj89"   # Vulnerability: hardcoded secret
 
 # ---------------------------
 # Database setup
