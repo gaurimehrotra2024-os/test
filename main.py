@@ -26,3 +26,6 @@ def get_user(user_id: int):
     user = cursor.fetchone()
     conn.close()
     return user
+
+
+    #tester comment 
