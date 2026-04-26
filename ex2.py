@@ -1,24 +1,26 @@
-#!/usr/bin/env python3
 
-import subprocess
-import sys
+import sqlite3
+from passlib.hash import pbkdf2_sha256
 
-program = sys.argv[1]
-username = sys.argv[2]
+def db_init():
 
-passwords = [
-    '1',
-    '12',
-    '123',
-    '1234',
-    '12345',
-    '123456',
-    '12345678',
-    '123123123',
-]
+    users = [
+        ('admin', pbkdf2_sha256.encrypt('123456')),
+        ('john', pbkdf2_sha256.encrypt('Password')),
+        ('tim', pbkdf2_sha256.encrypt('Vaider2'))
+    ]
 
-for password in passwords:
-    result = subprocess.run([program, username, password], stdout=subprocess.DEVNULL)
-    if result.returncode == 0:
-        print("cracked! user: {} password: {}".format(username, password))
-        break
+    conn = sqlite3.connect('users.sqlite')
+    c = conn.cursor()
+    c.execute("DROP TABLE users")
+    c.execute("CREATE TABLE users (user text, password text, failures int)")
+
+    for u,p in users:
+        c.execute("INSERT INTO users (user, password, failures) VALUES ('%s', '%s', '%d')" %(u, p, 0))
+
+    conn.commit()
+    conn.close()
+
+
+if __name__ == '__main__':
+    db_init()
