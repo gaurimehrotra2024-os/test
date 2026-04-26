@@ -2,14 +2,12 @@ import sqlite3
 
 def get_db():
     conn = sqlite3.connect("users.db")
-    conn.execute(""
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY,
-            username TEXT,
-            password TEXT,
-            role TEXT DEFAULT 'user'
-        )
-    "")
+    conn.execute("CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY,
+        username TEXT,
+        password TEXT,
+        role TEXT DEFAULT 'user'
+    )")
     conn.execute("INSERT OR IGNORE INTO users VALUES (1, 'admin', 'supersecret123', 'admin')")
     conn.commit()
     return conn
